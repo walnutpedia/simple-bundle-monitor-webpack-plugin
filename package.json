@@ -1,0 +1,17 @@
+{
+  "name": "simple-bundle-monitor-webpack-plugin",
+  "version": "1.0.0",
+  "description": "webpack plugin for uploading build information to simple-bundle-monitor server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "walnutpedia",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "lodash": "^4.17.15",
+    "schema-utils": "^2.6.6",
+    "webpack-bundle-analyzer": "3.7.0"
+  }
+}
