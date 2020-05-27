@@ -38,14 +38,14 @@ const schema = {
     "api_token": {
       "type": "string"
     },
-    "chartData": {
+    "enableChart": {
       "type": "boolean"
     }
   },
   "additionalProperties": false
 }
 
-class OutputInfoPlugin {
+class SimpleBundleMonitorPlugin {
   constructor (options = { chartData: false }) {
     validateOptions(schema, options);
     this.options = options;
@@ -59,9 +59,9 @@ class OutputInfoPlugin {
       var gitInfo = getGitInfo();
       var chartData = '';
 
-      if (this.options.chartData) {
+      if (this.options.enableChart) {
         chartData = getChartData(stats.toJson(), outputPath, {})
-        chartData = chartData ?  JSON.stringify(chartData) : null;
+        chartData = chartData ? JSON.stringify(chartData) : null;
       }
 
       var result = {
@@ -70,11 +70,11 @@ class OutputInfoPlugin {
         timestamp: Date.now(),
         assets,
         ...gitInfo,
-        chartData
+        chartData,
+        token: this.options.api_token
       }
 
       this.uploadBuild(result);
-
       callback && callback();
     });
   }
@@ -84,6 +84,11 @@ class OutputInfoPlugin {
     return axios.post(url, buildInfo, { timeout: 3000 }).then(res => {
       if (res.data && res.data.status === 0) {
         console.log('Build info has been uploaded to Simple Bundle Monitor service.');
+      }
+    }).catch(err => {
+      console.error('Simple Bundle Monitor upload failed.')
+      if (err.response && err.response.status === 401) {
+        console.error(err.response.data.error || 'Wrong token');
       }
     })
   }
@@ -105,4 +110,4 @@ function getChartData(bundleStats, bundleDir, analyzerOpts) {
   return chartData;
 }
 
-module.exports = OutputInfoPlugin;
+module.exports = SimpleBundleMonitorPlugin;
