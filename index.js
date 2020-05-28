@@ -81,7 +81,7 @@ class SimpleBundleMonitorPlugin {
 
   uploadBuild (buildInfo) {
     const url = this.options.server + 'api/builds';
-    return axios.post(url, buildInfo, { timeout: 3000 }).then(res => {
+    return axios.post(url, buildInfo, { timeout: 10000 }).then(res => {
       if (res.data && res.data.status === 0) {
         console.log('Build info has been uploaded to Simple Bundle Monitor service.');
       }
