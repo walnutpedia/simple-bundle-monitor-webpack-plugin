@@ -84,11 +84,18 @@ class SimpleBundleMonitorPlugin {
     return axios.post(url, buildInfo, { timeout: 10000 }).then(res => {
       if (res.data && res.data.status === 0) {
         console.log('Build info has been uploaded to Simple Bundle Monitor service.');
+        console.log(this.options.server, '\n')
       }
     }).catch(err => {
       console.error('Simple Bundle Monitor upload failed.')
       if (err.response && err.response.status === 401) {
         console.error(err.response.data.error || 'Wrong token');
+      } else if (err.response) {
+        console.error(err.response.status)
+      } else if (err.request) {
+        console.error('request error')
+      } else {
+        console.error(err.message)
       }
     })
   }
