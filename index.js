@@ -29,6 +29,8 @@ function getGitInfo () {
   if(!result.branch) {
     result.branch = 'EMPTY_BRANCH_NAME'
   }
+
+  return result
 }
 
 const schema = {
@@ -81,8 +83,6 @@ class SimpleBundleMonitorPlugin {
         chartData,
         token: this.options.api_token
       }
-
-      console.log(result.chartData.length)
 
       this.uploadBuild(result);
       callback && callback();
