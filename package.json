@@ -1,6 +1,6 @@
 {
   "name": "@shimo/simple-bundle-monitor-webpack-plugin",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "webpack plugin for uploading build information to simple-bundle-monitor server",
   "main": "index.js",
   "scripts": {

@@ -23,7 +23,7 @@ function getGitInfo () {
   }
 
   if (result.branch === 'HEAD') {
-    result.branch = proces.env.CI_COMMIT_BRANCH
+    result.branch = process.env.CI_COMMIT_BRANCH
   }
 
   if(!result.branch) {
