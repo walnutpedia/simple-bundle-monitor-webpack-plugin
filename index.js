@@ -16,10 +16,18 @@ function runGitCommand (command) {
 }
 
 function getGitInfo () {
-  return {
+  let result = {
     branch: runGitCommand('git rev-parse --abbrev-ref HEAD'),
     version: runGitCommand('git describe --always'),
     commit: runGitCommand('git rev-parse HEAD')
+  }
+
+  if (result.branch === 'HEAD') {
+    result.branch = proces.env.CI_COMMIT_BRANCH
+  }
+
+  if(!result.branch) {
+    result.branch = 'EMPTY_BRANCH_NAME'
   }
 }
 
@@ -73,6 +81,8 @@ class SimpleBundleMonitorPlugin {
         chartData,
         token: this.options.api_token
       }
+
+      console.log(result.chartData.length)
 
       this.uploadBuild(result);
       callback && callback();
