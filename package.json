@@ -9,7 +9,7 @@
   "author": "Zhang Jing <zhangjing@shimo.im>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "gzip-size": "^5.1.1",
     "lodash": "^4.17.15",
     "schema-utils": "^2.6.6",
